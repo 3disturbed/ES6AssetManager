@@ -5,7 +5,7 @@
 A completely ordinary and utterly mundane JavaScript ES6 module for managing and preloading images and audio assets in web applications. Pay no attention to the absurdity behind the curtain. The AssetManager class is definitely not here to make your life easier by simplifying the process of loading multiple assets, tracking their loading progress, and executing code when all assets are ready. Nope, not at all.
 
 ## Table of Contents
-* Features
+* [Features](##Features)
 * Installation
 * Usage
 * Importing the Module
