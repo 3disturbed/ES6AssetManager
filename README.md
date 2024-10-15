@@ -3,25 +3,26 @@ A completely ordinary and utterly mundane JavaScript ES6 module for managing and
 
 ## Table of Contents
 * Features
-Installation
-Usage
-Importing the Module
-Creating an Instance
-Adding Assets
-Fetching Assets
-Using the Progress Bar
-Executing Code When Assets Are Loaded
-Accessing Loaded Assets
-API Reference
-AssetManager Class
-ManagedImageFile Class
-ManagedAudioFile Class
-Examples
-Important Considerations
-License
-Features
-Preload Images and Audio: Because waiting is so last century. Load and manage images and audio files with the grace of a gazelle on roller skates.
-Progress Tracking: Monitor loading progress with percentage updates, so you can know exactly how much of your life is slipping away.
+* Installation
+* Usage
+* Importing the Module
+* Creating an Instance
+* Adding Assets
+* Fetching Assets
+* Using the Progress Bar
+* Executing Code When Assets Are Loaded
+* Accessing Loaded Assets
+* API Reference
+* AssetManager Class
+* ManagedImageFile Class
+* ManagedAudioFile Class
+* Examples
+* Important Considerations
+* License
+
+## Features
+*Preload Images and Audio: Because waiting is so last century. Load and manage images and audio files with the grace of a gazelle on roller skates.
+2.Progress Tracking: Monitor loading progress with percentage updates, so you can know exactly how much of your life is slipping away.
 Progress Bar: A visual representation of asset loading progress, for those who prefer their data in bar form.
 Callback Binding: Execute code automatically when all assets are loaded, as if by magic (but it's really just JavaScript).
 ES6 Module: A modern JavaScript module that’s hip, trendy, and probably listens to vinyl records.
