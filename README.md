@@ -6,8 +6,8 @@ A completely ordinary and utterly mundane JavaScript ES6 module for managing and
 
 ## Table of Contents
 * [Features](#Features)
-* [Installation](Installation)
-* [Usage](Usage)
+* [Installation](#Installation)
+* [Usage](#Usage)
 * Importing the Module
 * Creating an Instance
 * Adding Assets
