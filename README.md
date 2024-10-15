@@ -83,7 +83,7 @@ Add a delightful progress bar to your page, because who doesn't love a good prog
 const progressBarContainer = document.getElementById('progress-bar-container');
 assetManager.addProgressBar(progressBarContainer, 200, 20); // Width: 200px, Height: 20px
 ```
-##Executing Code When Assets Are Loaded
+## Executing Code When Assets Are Loaded
 Register a callback function to be called when all assets have finished loading. It's like throwing a surprise party for your code.
 
 ```
@@ -110,10 +110,10 @@ const image = assetManager.getImage(imageIndex);
 const audio = assetManager.getAudio(audioIndex);
 ```
 
-#API Reference
+# API Reference
 For those who crave details more than a cat craves a laser pointer.
 
-AssetManager Class
+## AssetManager Class
 Methods
 * addImage(src)
 * 
