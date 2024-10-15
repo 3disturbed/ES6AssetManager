@@ -172,7 +172,7 @@ loaded: A boolean indicating if the image is loaded. True or false, like a coin 
 
 ### Methods
 * fetch()
-* 
+  
 Starts loading the image. Patience is a virtue.
 Returns: Promise - Resolves when the image is loaded, or when pigs fly.
 
