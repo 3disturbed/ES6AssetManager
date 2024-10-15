@@ -8,20 +8,20 @@ A completely ordinary and utterly mundane JavaScript ES6 module for managing and
 * [Features](#Features)
 * [Installation](#Installation)
 * [Usage](#Usage)
-* Importing the Module
-* Creating an Instance
-* Adding Assets
-* Fetching Assets
-* Using the Progress Bar
-* Executing Code When Assets Are Loaded
-* Accessing Loaded Assets
-* API Reference
-* AssetManager Class
-* ManagedImageFile Class
-* ManagedAudioFile Class
-* Examples
-* Important Considerations
-* License
+* [Importing the Module](#Importing-the-Module)
+* [Creating an Instance](#Creating-an-Instance)
+* [Adding Assets](#Adding-Assets)
+* [Fetching Assets](#Fetching-Assets)
+* [Using the Progress Bar](#Using-the-Progress-Bar)
+* [Executing Code When Assets Are Loaded](#Executing-Code-When-Assets-Are-Loaded)
+* [Accessing Loaded Assets](#Accessing-Loaded-Assets)
+* [API Reference](#API-Reference)
+* [AssetManager Class](#AssetManager-Class)
+* [ManagedImageFile Class](#ManagedImageFile-Class)
+* [ManagedAudioFile Class](#ManagedAudioFile-Class)
+* [Examples](#Examples)
+* [Important Considerations](#Important-Considerations)
+* [License](#License)
 
 ## Features
 * Preload Images and Audio: Because waiting is so last century. Load and manage images and audio files with the grace of a gazelle on roller skates.
@@ -52,7 +52,7 @@ import { AssetManager } from './AssetManager.js';
 ## Usage
 Prepare yourself for an adventure in code.
 
-Importing the Module
+## Importing the Module
 Summon the AssetManager into your realm:
 
 ```
@@ -110,7 +110,7 @@ const image = assetManager.getImage(imageIndex);
 const audio = assetManager.getAudio(audioIndex);
 ```
 
-# API Reference
+## API Reference
 For those who crave details more than a cat craves a laser pointer.
 
 ## AssetManager Class
