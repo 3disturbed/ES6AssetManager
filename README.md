@@ -116,7 +116,7 @@ For those who crave details more than a cat craves a laser pointer.
 ## AssetManager Class
 Methods
 * addImage(src)
-* 
+  
 Adds an image source to the manager's ever-growing collection.
 src (string): The source URL of the image.
 Returns: number - The index of the managed image, suitable for framing.
