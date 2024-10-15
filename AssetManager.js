@@ -6,6 +6,7 @@ export class AssetManager {
         this.managedAudios = [];
         this.totalAssets = 0;
         this.loadedAssets = 0;
+        this.assetsLoadedCallback = null; // Add this line
     }
 
     /**
@@ -18,6 +19,14 @@ export class AssetManager {
         this.managedImages.push(managedImage);
         this.totalAssets++;
         return this.managedImages.length - 1;
+    }
+
+     /**
+     * Registers a callback function to be called when all assets are loaded.
+     * @param {function} callback - The function to call when assets are loaded.
+     */
+    onAssetsLoaded(callback) {
+        this.assetsLoadedCallback = callback;
     }
 
     /**
@@ -64,6 +73,13 @@ export class AssetManager {
             audio.fetch().then(() => {
                 this.loadedAssets++;
             });
+        });
+
+        
+        Promise.all(promises).then(() => {
+            if (this.assetsLoadedCallback) {
+                this.assetsLoadedCallback();
+            }
         });
     }
 
