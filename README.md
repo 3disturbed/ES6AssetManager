@@ -75,7 +75,10 @@ const audioIndex = assetManager.addAudio('path/to/audio.mp3');
 ## Fetching Assets
 Politely request that the manager fetch all the assets, if it's not too much trouble.
 
-## assetManager.fetchAll();
+assetManager.fetchAll();
+---
+
+## Using the Progress Bar
 Using the Progress Bar
 Add a delightful progress bar to your page, because who doesn't love a good progress bar?
 
