@@ -6,7 +6,9 @@ export class AssetManager {
         this.managedAudios = [];
         this.totalAssets = 0;
         this.loadedAssets = 0;
-        this.assetsLoadedCallback = null; // Add this line
+        this.assetsLoadedCallback = null;
+        this.progressUpdateCallback = null; // Added
+        this.imageTags = [];
     }
 
     /**
@@ -18,15 +20,34 @@ export class AssetManager {
         const managedImage = new ManagedImageFile(src);
         this.managedImages.push(managedImage);
         this.totalAssets++;
+        let filenameStripped = src.split('/').pop().split('.')[0];
+        this.imageTags[this.managedImages.length - 1] = filenameStripped;
         return this.managedImages.length - 1;
     }
 
-     /**
+    getImagebyTag(tag) {
+        const index = this.imageTags.indexOf(tag);
+        if (index === -1) {
+            console.error(`Image with tag ${tag} not found.`);
+            return null;
+        }
+        return this.managedImages[index].img;
+    }
+
+    /**
      * Registers a callback function to be called when all assets are loaded.
      * @param {function} callback - The function to call when assets are loaded.
      */
     onAssetsLoaded(callback) {
         this.assetsLoadedCallback = callback;
+    }
+
+    /**
+     * Registers a callback function to be called on progress updates.
+     * @param {function} callback - The function to call with the progress percentage.
+     */
+    onProgressUpdate(callback) { // Added
+        this.progressUpdateCallback = callback;
     }
 
     /**
@@ -63,23 +84,46 @@ export class AssetManager {
      * Initiates the fetching of all managed assets.
      */
     fetchAll() {
-        this.managedImages.forEach((image) => {
-            image.fetch().then(() => {
-                this.loadedAssets++;
-            });
-        });
-
-        this.managedAudios.forEach((audio) => {
-            audio.fetch().then(() => {
-                this.loadedAssets++;
-            });
-        });
-
-        
-        Promise.all(promises).then(() => {
-            if (this.assetsLoadedCallback) {
-                this.assetsLoadedCallback();
+        return new Promise((resolve, reject) => {
+            let loadedCount = 0;
+            const total = this.managedImages.length + this.managedAudios.length;
+            
+            if (total === 0) {
+                if (this.assetsLoadedCallback) this.assetsLoadedCallback();
+                resolve();
+                return;
             }
+
+            const assetLoaded = () => {
+                loadedCount++;
+                if (this.progressUpdateCallback) {
+                    const percentage = Math.floor((loadedCount / total) * 100);
+                    this.progressUpdateCallback(percentage);
+                }
+                if (loadedCount === total) {
+                    if (this.assetsLoadedCallback) this.assetsLoadedCallback();
+                    resolve();
+                }
+            };
+
+            const assetFailed = (error) => {
+                console.error('Asset failed to load:', error);
+                reject(error);
+            };
+           
+            // Load Images
+            this.managedImages.forEach((managedImage) => {
+                managedImage.img.addEventListener('load', assetLoaded);
+                managedImage.img.addEventListener('error', assetFailed);
+                managedImage.fetch().catch(assetFailed);
+            });
+
+            // Load Audios
+            this.managedAudios.forEach((managedAudio) => {
+                managedAudio.audio.addEventListener('canplaythrough', assetLoaded);
+                managedAudio.audio.addEventListener('error', assetFailed);
+                managedAudio.fetch().catch(assetFailed);
+            });
         });
     }
 
@@ -105,19 +149,20 @@ export class AssetManager {
         elem.appendChild(canvas);
         const ctx = canvas.getContext('2d');
 
-        const updateProgressBar = () => {
-            const progress = this.getProgress();
+        this.onProgressUpdate((progress) => { // Use the new onProgressUpdate method
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = 'gray';
+            ctx.fillStyle = 'black';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = 'green';
             ctx.fillRect(0, 0, canvas.width * (progress / 100), canvas.height);
-            if (progress < 100) {
-                requestAnimationFrame(updateProgressBar);
-            }
-        };
 
-        updateProgressBar();
+            if (progress === 100) {
+               
+                if (this.assetsLoadedCallback) {
+                    this.assetsLoadedCallback();
+                }
+            }
+        });
     }
 }
 
@@ -133,12 +178,19 @@ class ManagedImageFile {
      * @returns {Promise} - Resolves when the image is loaded.
      */
     fetch() {
+        
         return new Promise((resolve, reject) => {
-            this.img.onload = () => {
+            const onLoad = () => {
                 this.loaded = true;
                 resolve();
             };
-            this.img.onerror = reject;
+
+            const onError = (err) => {
+                reject(err);
+            };
+
+            this.img.addEventListener('load', onLoad);
+            this.img.addEventListener('error', onError);
             this.img.src = this.src;
         });
     }
@@ -165,11 +217,17 @@ class ManagedAudioFile {
      */
     fetch() {
         return new Promise((resolve, reject) => {
-            this.audio.oncanplaythrough = () => {
+            const onCanPlayThrough = () => {
                 this.loaded = true;
                 resolve();
             };
-            this.audio.onerror = reject;
+
+            const onError = (err) => {
+                reject(err);
+            };
+
+            this.audio.addEventListener('canplaythrough', onCanPlayThrough);
+            this.audio.addEventListener('error', onError);
             this.audio.src = this.src;
             this.audio.load();
         });
