@@ -56,7 +56,7 @@ Prepare yourself for an adventure in code.
 Summon the AssetManager into your realm:
 
 ```
-import { AssetManager } from 'https://3disturbed.github.io/ES6DataManager/AssetManager.js';
+import { AssetManager } from 'https://3disturbed.github.io/ES6AssetManager/AssetManager.js';
 ```
 
 ## Creating an Instance
